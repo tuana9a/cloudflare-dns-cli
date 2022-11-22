@@ -1,34 +1,55 @@
-import sys
 import requests
+import argparse
 
 from cloudflare.api.v4.configs.cfg import default_credentials
 from cloudflare.api.v4.configs.authorization import default_headers
 
+parser = argparse.ArgumentParser(prog="cloudflare-update-dns")
+
+parser.add_argument("-i", "--id", help="Id of dns", required=True, type=str)
+
+parser.add_argument("-n",
+                    "--name",
+                    help="Name of dns",
+                    required=True,
+                    type=str)
+
+parser.add_argument("-c",
+                    "--content",
+                    help="Content of dns",
+                    required=True,
+                    type=str)
+
+parser.add_argument("-t",
+                    "--type",
+                    help="Type of dns",
+                    required=False,
+                    type=str,
+                    default="A",
+                    choices=["A", "AAAA", "CNAME", "MX", "TXT"])
+
+parser.add_argument("-p",
+                    "--proxied",
+                    help="Proxied",
+                    required=False,
+                    type=bool,
+                    default=False)
+
 
 def update_dns():
-    record_id = sys.argv[1]
-    name = sys.argv[2]
-    content = sys.argv[3]
+    args = parser.parse_args()
 
-    if (len(sys.argv) >= 5):
-        record_type = sys.argv[4]
-    else:
-        record_type = "A"
+    id = args.id
+    name = args.name
+    content = args.content
+    type = args.type
+    proxied = args.proxied
 
-    if (len(sys.argv) >= 6):
-        proxied = bool(sys.argv[5])
-    else:
-        proxied = False
-
-    record_type = "A"
-    proxied = False
-    if not record_type: record_type = "A"
-    proxied = bool(proxied)
     response = requests.put(
-        f"{default_credentials.base_url}/zones/{default_credentials.zone_id}/dns_records/{record_id}",
+        f"{default_credentials.base_url}/zones/{default_credentials.zone_id}/dns_records/{id}",
         headers=default_headers,
         json={
-            "type": record_type,
+            "type": type,
             "name": name,
             "content": content,
             "proxied": proxied
