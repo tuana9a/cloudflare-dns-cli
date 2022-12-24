@@ -1,9 +1,9 @@
 # cloudflare-dns-cli
 
-Simple Cloudflare cli to manage dns
+Simple cloudflare cli that manages dns records
 
-## package
+## how to use
 
 ```bash
-python setup.py sdist
+pip install git+https://github.com/tuana9a/cloudflare-dns-cli
 ```

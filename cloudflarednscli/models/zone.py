@@ -16,6 +16,7 @@ class ZoneRecord():
         pass
 
     def __str__(self) -> str:
-        return " ".join(
-            [self.id, self.name,
-             str(self.name_servers), self.status])
+        return " ".join([
+            self.id, self.name, f"name_servers={str(self.name_servers)}",
+            self.status
+        ])

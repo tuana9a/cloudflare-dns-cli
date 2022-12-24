@@ -24,6 +24,5 @@ class DnsRecord():
     def __str__(self):
         return " ".join([
             self.id, self.type, self.name, self.content,
-            str(self.proxied),
-            str(self.ttl)
+            f"proxied={str(self.proxied)}", f"ttl={str(self.ttl)}"
         ])
