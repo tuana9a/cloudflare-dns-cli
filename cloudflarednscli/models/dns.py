@@ -22,7 +22,6 @@ class DnsRecord():
         self.ttl = ttl
 
     def __str__(self):
-        return " ".join([
+        return "%s %-4s %-20s %-15s %s %s" % (
             self.id, self.type, self.name, self.content,
-            f"proxied={str(self.proxied)}", f"ttl={str(self.ttl)}"
-        ])
+            f"proxied={str(self.proxied)}", f"ttl={str(self.ttl)}")
