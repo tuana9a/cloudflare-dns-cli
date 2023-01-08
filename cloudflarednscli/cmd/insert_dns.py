@@ -21,9 +21,8 @@ parser.add_argument("-t",
 parser.add_argument("-p",
                     "--proxied",
                     help="Proxied status",
-                    required=False,
-                    type=bool,
-                    default=False)
+                    action="store_const",
+                    const=True)
 
 
 def run(parent_args: argparse.Namespace):

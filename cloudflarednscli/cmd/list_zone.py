@@ -11,5 +11,6 @@ def run(parent_args):
                                 "Authorization": f"Bearer {cfg.access_token}",
                                 "Content-Type": "application/json"
                             })
-    for x in list(map(lambda x: ZoneRecord(**x), response.json()["result"])):
-        print(x)
+    for x in response.json()["result"]:
+        zone = ZoneRecord(**x)
+        print(zone)

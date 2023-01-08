@@ -17,8 +17,11 @@ def run(parent_args: argparse.Namespace = argparse.Namespace()):
                                 "Authorization": f"Bearer {cfg.access_token}",
                                 "Content-Type": "application/json"
                             })
-    dns_records = list(map(lambda x: DnsRecord(**x),
-                           response.json()["result"]))
+    dns_records = []
+
+    for x in response.json()["result"]:
+        dns_records.append(DnsRecord(**x))
+
     if (args.name):
         for x in dns_records:
             print(" ".join([x.id, x.name]))
